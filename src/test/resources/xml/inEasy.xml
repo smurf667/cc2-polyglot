@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<data xmlns="http://localhost/easy-in"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://localhost/easy-in easy-in.xsd">
+	<items>
+		<item firstName="Jane" lastName="Doe" street="Sesame Street" cityCode="123" countryCode="CH" />
+	</items>
+	<cities>
+		<city code="123">Lugano</city>
+	</cities>
+	<countries>
+		<country code="CH" name="Switzerland" />
+	</countries>
+</data>

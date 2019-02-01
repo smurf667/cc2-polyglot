@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<a xmlns:marker="http://localhost/marker">
+	<b marker:anyOf="x,y,z">this is a simple structure present when any of 'x',
+		'y' or 'z' are passed in the flags string</b>
+	<b marker:allOf="z,a">keep only if both 'a' and 'z' are in the flags string</b>
+	<b xmlns:unused="http://localhost/unused">
+		<c>hello - the parent should no longer use the 'unused' namespace, as
+			no element is using it</c>
+	</b>
+	<b xmlns:used="http://localhost/used">
+		<!-- the used namespace is present on the second 'c' element and thus should not be removed -->
+		<c>hello</c>
+		<c used:used="true">world</c>
+	</b>
+</a>

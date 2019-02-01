@@ -1,0 +1,74 @@
+{
+  "editDistances":[
+    {
+      "label":"Example: Hello World",
+      "from":"hello world!",
+      "to":"hello, world",
+      "distance":2
+    }
+  ],
+  "beeGraphs":[
+    {
+      "label":"Example: Busy Bee",
+      "connections":[
+        {
+          "a":"A",
+          "b":"B",
+          "time":1
+        },
+        {
+          "a":"B",
+          "b":"C",
+          "time":2
+        }
+      ],
+      "maxTime": 3,
+      "empty": false
+    }
+  ],
+  "notationExpressions":[
+    {
+      "label":"Example: 1 + 2",
+      "expression":"1 + 2",
+      "expected":3
+    }
+  ],
+  "huffmanStrings":[
+    {
+      "label":"Example: Hello World",
+      "text":"hello world",
+      "bitcount":32
+    }
+  ],
+  "xmlEasy":[
+    {
+      "label":"Example: From documentation",
+      "xmlIn":"/xml/inEasy.xml",
+      "xpathAsserts":["count(/items//item) = 1"]
+    }
+  ],
+  "xmlHard":[
+    {
+      "label":"Example: From documentation",
+      "xmlIn":"/xml/inHard.xml",
+      "parameter":"x,y,z",
+      "xpathAsserts":[
+        "count(//b) = 3",
+        "count(//b[namespace::used]) = 1",
+        "//c[2]/@* = 'true'"
+      ]
+    }
+  ],
+  "pancakes":[
+    {
+      "label":"Example: [3,1,2]",
+      "stack":[3,1,2]
+    }
+  ],
+  "happySeven":[
+    {
+      "label":"Example: [1,2,3,5,6,7,4]",
+      "configuration":[1,2,3,5,6,7,4]
+    }
+  ]
+}
