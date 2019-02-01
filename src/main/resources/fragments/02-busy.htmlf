@@ -1,0 +1,80 @@
+<section data-transition="concave">
+	<section>
+		<h2>Busy Bee</h2>
+		<ul>
+			<li>Return a path visiting all vertices of a graph</li>
+			<li>The path must fulfill a cost constraint</li>
+			<li>This is a NP-complete problem, hard!</li>
+			<li>Requires brute force search</li>
+		</ul>
+		<div>&nbsp;</div>
+		@STATS@
+	</section>
+	<section id="bee-slide">
+		<h2>An example</h2>
+<!-- 
+Random graph from challenge.json
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" id="random-graph" viewBox="128 128 704 384"><line class="beelink" x1="464.51634634550794" y1="150.69170403846923" x2="527.3076431042604" y2="161.4494645927495" /><line class="beelink" x1="449.02275696362733" y1="246.6816453002908" x2="539.613081796974" y2="256.06467724799927" /><line class="beelink" x1="345.3902919450106" y1="395.54297749706586" x2="400.81819514169587" y2="396.0772103902668" /><line class="beelink" x1="484.6578015335556" y1="422.82589111263815" x2="448.2388664627494" y2="290.8342423260224" /><line class="beelink" x1="539.613081796974" y1="256.06467724799927" x2="587.7480691536986" y2="327.3052252974584" /><line class="beelink" x1="381.6427071088254" y1="273.3913830909695" x2="474.9776728253632" y2="201.32128892681214" /><line class="beelink" x1="557.053573529413" y1="217.88571435404305" x2="539.613081796974" y2="256.06467724799927" /><line class="beelink" x1="439.44509802259995" y1="105.65155181317031" x2="474.9776728253632" y2="201.32128892681214" /><line class="beelink" x1="395.166359770405" y1="221.78293392054795" x2="448.2388664627494" y2="290.8342423260224" /><line class="beelink" x1="447.546438969548" y1="364.9490693476354" x2="345.3902919450106" y2="395.54297749706586" /><line class="beelink" x1="516.6629992251117" y1="350.79580451347596" x2="400.81819514169587" y2="396.0772103902668" /><line class="beelink" x1="464.51634634550794" y1="150.69170403846923" x2="439.44509802259995" y2="105.65155181317031" /><line class="beelink" x1="482.9045973528527" y1="241.7614691410849" x2="357.938142230067" y2="300.8548474065421" /><line class="beelink" x1="393.1367725531379" y1="154.5286579833049" x2="439.44509802259995" y2="105.65155181317031" /><line class="beelink" x1="410.7820549911261" y1="309.70621408301383" x2="528.997541569767" y2="288.06170902847646" /><line class="beelink" x1="395.166359770405" y1="221.78293392054795" x2="464.51634634550794" y2="150.69170403846923" /><line class="beelink" x1="335.9879967456117" y1="241.148365668082" x2="449.02275696362733" y2="246.6816453002908" /><line class="beelink" x1="482.9045973528527" y1="241.7614691410849" x2="449.02275696362733" y2="246.6816453002908" /><line class="beelink" x1="335.9879967456117" y1="241.148365668082" x2="357.938142230067" y2="300.8548474065421" /><line class="beelink" x1="474.9776728253632" y1="201.32128892681214" x2="528.997541569767" y2="288.06170902847646" /><line class="beelink" x1="539.613081796974" y1="256.06467724799927" x2="528.997541569767" y2="288.06170902847646" /><line class="beelink" x1="395.166359770405" y1="221.78293392054795" x2="335.9879967456117" y2="241.148365668082" /><line class="beelink" x1="482.9045973528527" y1="241.7614691410849" x2="528.997541569767" y2="288.06170902847646" /><line class="beelink" x1="357.938142230067" y1="300.8548474065421" x2="410.7820549911261" y2="309.70621408301383" /><line class="beelink" x1="516.6629992251117" y1="350.79580451347596" x2="528.997541569767" y2="288.06170902847646" /><line class="beelink" x1="395.166359770405" y1="221.78293392054795" x2="474.9776728253632" y2="201.32128892681214" /><line class="beelink" x1="393.1367725531379" y1="154.5286579833049" x2="464.51634634550794" y2="150.69170403846923" /><line class="beelink" x1="557.053573529413" y1="217.88571435404305" x2="448.2388664627494" y2="290.8342423260224" /><line class="beelink" x1="482.9045973528527" y1="241.7614691410849" x2="474.9776728253632" y2="201.32128892681214" /><line class="beelink" x1="357.938142230067" y1="300.8548474065421" x2="345.3902919450106" y2="395.54297749706586" /><line class="beelink" x1="447.546438969548" y1="364.9490693476354" x2="539.613081796974" y2="256.06467724799927" /><line class="beelink" x1="449.02275696362733" y1="246.6816453002908" x2="516.6629992251117" y2="350.79580451347596" /><line class="beelink" x1="447.546438969548" y1="364.9490693476354" x2="410.7820549911261" y2="309.70621408301383" /><line class="beelink" x1="381.6427071088254" y1="273.3913830909695" x2="357.938142230067" y2="300.8548474065421" /><line class="beelink" x1="393.1367725531379" y1="154.5286579833049" x2="410.7820549911261" y2="309.70621408301383" /><line class="beelink" x1="395.166359770405" y1="221.78293392054795" x2="357.938142230067" y2="300.8548474065421" /><line class="beelink" x1="516.6629992251117" y1="350.79580451347596" x2="587.7480691536986" y2="327.3052252974584" /><line class="beelink" x1="449.02275696362733" y1="246.6816453002908" x2="474.9776728253632" y2="201.32128892681214" /><line class="beelink" x1="357.938142230067" y1="300.8548474065421" x2="448.2388664627494" y2="290.8342423260224" /><line class="beelink" x1="395.166359770405" y1="221.78293392054795" x2="449.02275696362733" y2="246.6816453002908" /><line class="beelink" x1="464.51634634550794" y1="150.69170403846923" x2="539.613081796974" y2="256.06467724799927" /><line class="beelink" x1="557.053573529413" y1="217.88571435404305" x2="654.2241343299137" y2="191.03568155910096" /><line class="beelink" x1="482.9045973528527" y1="241.7614691410849" x2="527.3076431042604" y2="161.4494645927495" /><line class="beelink" x1="474.9776728253632" y1="201.32128892681214" x2="527.3076431042604" y2="161.4494645927495" /><line class="beelink" x1="557.053573529413" y1="217.88571435404305" x2="527.3076431042604" y2="161.4494645927495" /><line class="beelink" x1="381.6427071088254" y1="273.3913830909695" x2="400.81819514169587" y2="396.0772103902668" /><line class="beelink" x1="381.6427071088254" y1="273.3913830909695" x2="410.7820549911261" y2="309.70621408301383" /><line class="beelink" x1="557.053573529413" y1="217.88571435404305" x2="528.997541569767" y2="288.06170902847646" /><line class="beelink" x1="395.166359770405" y1="221.78293392054795" x2="381.6427071088254" y2="273.3913830909695" /><line class="beelink" x1="528.997541569767" y1="288.06170902847646" x2="587.7480691536986" y2="327.3052252974584" /><line class="beelink" x1="557.053573529413" y1="217.88571435404305" x2="474.9776728253632" y2="201.32128892681214" /><circle class="beenode" r="6" style="fill: rgb(31, 119, 180);" id="n0" cx="393.1367725531379" cy="154.5286579833049"/><circle class="beenode" r="8" style="fill: rgb(255, 127, 14);" id="n1" cx="482.9045973528527" cy="241.7614691410849"/><circle class="beenode" r="9" style="fill: rgb(44, 160, 44);" id="n2" cx="557.053573529413" cy="217.88571435404305"/><circle class="beenode" r="10" style="fill: rgb(214, 39, 40);" id="n3" cx="395.166359770405" cy="221.78293392054795"/><circle class="beenode" r="8" style="fill: rgb(255, 127, 14);" id="n4" cx="464.51634634550794" cy="150.69170403846923"/><circle class="beenode" r="6" style="fill: rgb(31, 119, 180);" id="n5" cx="447.546438969548" cy="364.9490693476354"/><circle class="beenode" r="6" style="fill: rgb(31, 119, 180);" id="n6" cx="335.9879967456117" cy="241.148365668082"/><circle class="beenode" r="4" style="fill: rgb(148, 103, 189);" id="n7" cx="484.6578015335556" cy="422.82589111263815"/><circle class="beenode" r="8" style="fill: rgb(255, 127, 14);" id="n8" cx="381.6427071088254" cy="273.3913830909695"/><circle class="beenode" r="9" style="fill: rgb(44, 160, 44);" id="n9" cx="449.02275696362733" cy="246.6816453002908"/><circle class="beenode" r="10" style="fill: rgb(214, 39, 40);" id="n10" cx="357.938142230067" cy="300.8548474065421"/><circle class="beenode" r="8" style="fill: rgb(255, 127, 14);" id="n11" cx="410.7820549911261" cy="309.70621408301383"/><circle class="beenode" r="9" style="fill: rgb(44, 160, 44);" id="n12" cx="539.613081796974" cy="256.06467724799927"/><circle class="beenode" r="6" style="fill: rgb(31, 119, 180);" id="n13" cx="439.44509802259995" cy="105.65155181317031"/><circle class="beenode" r="7" style="fill: rgb(140, 86, 75);" id="n14" cx="448.2388664627494" cy="290.8342423260224"/><circle class="beenode" r="7" style="fill: rgb(140, 86, 75);" id="n15" cx="516.6629992251117" cy="350.79580451347596"/><circle class="beenode" r="11" style="fill: rgb(227, 119, 194);" id="n16" cx="474.9776728253632" cy="201.32128892681214"/><circle class="beenode" r="6" style="fill: rgb(31, 119, 180);" id="n17" cx="345.3902919450106" cy="395.54297749706586"/><circle class="beenode" r="10" style="fill: rgb(214, 39, 40);" id="n18" cx="528.997541569767" cy="288.06170902847646"/><circle class="beenode" r="7" style="fill: rgb(140, 86, 75);" id="n19" cx="527.3076431042604" cy="161.4494645927495"/><circle class="beenode" r="6" style="fill: rgb(31, 119, 180);" id="n20" cx="587.7480691536986" cy="327.3052252974584"/><circle class="beenode" r="6" style="fill: rgb(31, 119, 180);" id="n21" cx="400.81819514169587" cy="396.0772103902668"/><circle class="beenode" r="4" style="fill: rgb(148, 103, 189);" id="n22" cx="654.2241343299137" cy="191.03568155910096"/></svg>
+<script>
+const beegraph = document.getElementById("random-graph");
+let beerunning = false;
+
+function visitFlower(list, last) {
+  if (beerunning) {
+    if (list.length > 0) {
+      const node = list.shift();
+      const circle = beegraph.getElementById(node);
+      circle.setAttribute("class", "beenodev");
+      if (last) {
+        const edge = beegraph.getElementById(last < node ? last + node : node + last);
+        edge.setAttribute("class", "beelinkv");
+      }
+      window.setTimeout(function() {
+        visitFlower(list, node);
+      }, 500);
+    } else {
+      window.setTimeout(function() {
+        if (beerunning) {
+          startBee();
+        }
+      }, 4000);
+    }
+  }
+}
+function findCircleId(line, idx) {
+  const loc = "circle[cx='" + l.getAttribute("x" + idx) + "'][cy='" + l.getAttribute("y" + idx) + "']";
+  const a = beegraph.querySelector(loc);
+  return a.getAttribute("id");
+}
+function reset() {
+  // reset circles
+  for (c of beegraph.querySelectorAll("circle")) {
+    c.setAttribute("r", "7");
+    c.setAttribute("class", "beenode");
+    c.style = "";
+  }
+  // reset connections
+  for (l of beegraph.querySelectorAll("line")) {
+     l.setAttribute("class", "beelink");
+  }
+}
+
+// id the connections
+for (l of beegraph.querySelectorAll("line")) {
+  const a = findCircleId(l, 1);
+  const b = findCircleId(l, 2);
+  l.setAttribute("id", a < b ? a + b : b + a);
+}
+
+function startBee() {
+  reset();
+  beerunning = true;
+  visitFlower(["n22", "n2", "n19", "n4", "n0", "n13", "n16", "n9", "n1", "n18", "n12", "n20", "n15", "n21", "n17", "n5", "n11", "n8", "n10", "n6", "n3", "n14", "n7"]);
+}
+function stopBee() {
+  beerunning = false;
+}
+AnimationRegistry.register("bee-slide", startBee, stopBee);
+</script>
+	</section>

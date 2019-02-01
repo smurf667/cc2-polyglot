@@ -1,0 +1,127 @@
+<section data-transition="concave">
+	<section>
+		<h2>Minimal Edit Distance</h2>
+		<ul>
+			<li>Return the minimal number of character operations to turn one string into another</li>
+			<li>Naive solution: Try the smallest-cost operations recursively</li>
+			<li>Efficient: Use dynamic programming and re-use known solutions</li>
+		</ul>
+		<div>&nbsp;</div>
+		@STATS@
+	</section>
+	<section id="med-slide">
+		<h2>An example</h2>
+		<h3 id="med-src"></h3>
+		<h3 id="med-ops"></h3>
+		<h3 id="med-temp"></h3>
+<script>
+let medPos = 0;
+let medCursor = 0;
+function medStep(pos, advance) {
+  let mods = document.querySelectorAll("#med-ops span");
+  for (let i = 0; i < mods.length; i++) {
+    mods[i].setAttribute("class", i % 2 === 0 ? "med-hi" : "med-lo");
+  }
+  if (!AnimationRegistry.active["med-slide"]) {
+    return;
+  }
+  if (!mods[pos]) {
+    for (let c of document.querySelectorAll("#med-temp span")) {
+      c.setAttribute("class", "ok");
+    }
+    // done... repeat after 5s
+    window.setTimeout(function() {
+      medStart();
+    }, 5000);
+    return;
+  }
+  mods[pos].setAttribute("class", "med-on");
+  // apply mod
+  let op = mods[pos].innerText.charAt(0);
+  let c = document.querySelectorAll("#med-temp span");
+  // remove old cursor position
+  c[medCursor].setAttribute("class", "");
+  if ("=" === op) {
+    medCursor = parseInt(mods[pos].innerText.substring(2), 10);
+    c[medCursor].setAttribute("class", "cursor");
+    if (advance) {
+      // perform the modification
+      c[medCursor].innerText = mods[pos].innerText.charAt(1);
+    }
+  } else if ("+" === op) {
+    medCursor = parseInt(mods[pos].innerText.substring(2), 10);
+    if (advance) {
+      let ins = document.createElement("span");
+      let val = mods[pos].innerText.charAt(1);
+      if (val === " ") {
+        ins.innerHTML = "&nbsp;";
+      } else {
+        ins.innerText = val;
+      }
+      ins.setAttribute("class", "cursor");
+      c[medCursor].before(ins);
+    } else {
+      c[medCursor].setAttribute("class", "cursor");
+    }
+  } else if ("-" === op) {
+    medCursor = parseInt(mods[pos].innerText.substring(1), 10);
+    c[medCursor].setAttribute("class", "cursor");
+    if (advance) {
+      c[medCursor].parentNode.removeChild(c[medCursor]);
+    }
+  }
+  if (!advance) {
+    window.setTimeout(function() {
+      medStep(pos, true);
+    }, 1000);
+  } else {
+    window.setTimeout(function() {
+      medStep(pos + 1, false);
+    }, 500);
+  }
+}
+function medSpans() {
+  let display = document.getElementById("med-temp");
+  while (display.firstChild) {
+    display.firstChild.remove();
+  }
+  let src = document.getElementById("med-src").innerText;
+  for (let i = 0; i < src.length; i++) {
+    let s = document.createElement("span");
+    if (src.charAt(i) === " ") {
+      s.innerHTML = "&nbsp;";
+    } else {
+      s.innerText = src.charAt(i);
+    }
+    display.appendChild(s);
+    if (i == src.length - 1) {
+      s.setAttribute("class", "cursor");
+      medCursor = i;
+    }
+  }
+  medPos = src.length - 1;
+}
+function medStart() {
+  medSpans();
+  window.setTimeout(function() {
+    medStep(0, false);
+  }, 1000)
+}
+function medStop() {
+}
+
+function medInit(from, ops) {
+  document.getElementById("med-src").innerHTML = "<span class=\"med-on\">" + from + "</span>";
+  medSpans();
+  let div = document.querySelector("#med-ops");
+  for (let text of ops) {
+    let op = document.createElement("span");
+    op.innerText = text;
+    op.setAttribute("class", ops.indexOf(text) % 2 === 0 ? "med-hi" : "med-lo");
+    div.appendChild(op);
+  }
+}
+medInit("make america great again ", ["=c5", "=o6", "+d7", "= 9", "-10", "=o11", "=o12", "=l13", "-14", "-14", "-14", "-14"]);
+AnimationRegistry.register("med-slide", medStart, medStop);
+</script>
+	</section>

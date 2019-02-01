@@ -1,0 +1,273 @@
+<section data-transition="concave">
+	<section>
+		<h2>Huffman Coding</h2>
+		<ul>
+			<li>Compress a given string using Huffman codes</li>
+			<li>This means: Build a binary tree...
+				<ul>
+					<li>where the most frequent letters...</li>
+					<li>have the shortest code words</li>
+				</ul>
+			</li>
+		</ul>
+		<div>&nbsp;</div>
+		@STATS@
+	</section>
+	<section id="huffman-slide">
+		<h2>An example</h2>
+		<h3 id="huffman-in"></h3>
+<!-- http://www.griffinpoetryprize.com/from-chapter-e/ -->
+<svg id="huffman" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0" width="672" height="468">
+<g id="huffman-tree"/>
+</svg>
+<script>
+const huffmanText = "WE SNEER WHEN WE DETECT THE CLEVER SCHEME";
+
+function encodeLetters(codes, position) {
+  if (!AnimationRegistry.active["huffman-slide"]) {
+    return;
+  }
+  const g = document.getElementById("huffman-tree");
+  if (position === 0) {
+    while (g.firstChild) {
+      g.firstChild.remove();
+    }
+  }
+  if (position === huffmanText.length) {
+    window.setTimeout(startHuffman, 7000);
+    return;
+  }
+  const letters = document.getElementById("huffman-in").querySelectorAll("span");
+  if (position > 0) {
+    letters.item(position - 1).setAttribute("class", "");
+  }
+  letters.item(position).setAttribute("class", "med-on");
+  const c = codes[huffmanText.charAt(position)];
+  const color = position % 2 === 0 ? "fill:#aaa; " : "fill:#999; ";
+  const size = c.length * 28;
+  if (codes.xpos + size >= 672) {
+    codes.xpos = 48;
+    codes.ypos += 48;
+  }
+  let text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  text.setAttributeNS(null, "x", codes.xpos);
+  text.setAttributeNS(null, "y", codes.ypos);
+  text.setAttributeNS(null, "style", color + "font-family: monospace; font-size: 24px; font-weight: bold;");
+  text.setAttributeNS(null, "text-anchor", "middle");
+  text.textContent = c;
+  g.appendChild(text);
+  text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  text.setAttributeNS(null, "x", codes.xpos);
+  text.setAttributeNS(null, "y", codes.ypos + 16);
+  text.setAttributeNS(null, "style", "fill:#aa0; font-family: monospace; font-size: 16px; font-weight: bold;");
+  text.setAttributeNS(null, "text-anchor", "middle");
+  text.textContent = huffmanText.charAt(position);
+  g.appendChild(text);
+  codes.xpos += size;
+  window.setTimeout(function() {
+    encodeLetters(codes, position + 1);
+  }, 500);
+}
+
+function renderTree(tree) {
+  const g = document.getElementById("huffman-tree");
+  while (g.firstChild) {
+    g.firstChild.remove();
+  }
+  let y = 35;
+  let queue = [ tree ];
+  const positions = {};
+  const codes = tree.children.length < 3 ? { xpos: 48, ypos: 16 } : undefined;
+  while (queue.length > 0) {
+    const sx = 672 / queue.length;
+    let x = - sx / 2;
+    const next = [];
+    for (node of queue) {
+      x += sx;
+      positions[node.id] = { x: x, y: y };
+      if (node.parent && positions[node.parent.id]) {
+        // connect to parent
+        const edge = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        edge.setAttributeNS(null, "style", "stroke:#888;stroke-width:3");
+        edge.setAttributeNS(null, "x1", x);
+        edge.setAttributeNS(null, "y1", y);
+        edge.setAttributeNS(null, "x2", positions[node.parent.id].x);
+        edge.setAttributeNS(null, "y2", positions[node.parent.id].y);
+        edge.setAttributeNS(null, "id", node.id + node.parent.id);
+        g.insertBefore(edge, g.firstChild);
+      }
+      const vertex = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      vertex.setAttributeNS(null, "cx", x);
+      vertex.setAttributeNS(null, "cy", y);
+      vertex.setAttributeNS(null, "r", "24");
+      g.appendChild(vertex);
+      if (node.children) {
+        vertex.setAttributeNS(null, "style", "fill:#999");
+        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttributeNS(null, "x", x);
+        text.setAttributeNS(null, "y", y);
+        text.setAttributeNS(null, "style", "fill:#000;font-size: 24px; font-weight: bold;");
+        text.setAttributeNS(null, "text-anchor", "middle");
+        text.setAttributeNS(null, "dy", ".3em");
+        text.textContent = node.value.toString();
+        g.appendChild(text);
+        for (child of node.children) {
+          next.push(child);
+        }
+      } else {
+        let text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttributeNS(null, "x", x);
+        text.setAttributeNS(null, "y", y);
+        text.setAttributeNS(null, "style", "fill:#fff;font-size: 24px; font-weight: bold;");
+        text.setAttributeNS(null, "text-anchor", "middle");
+        text.setAttributeNS(null, "dy", ".3em");
+        text.textContent = node.label;
+        g.appendChild(text);
+        text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttributeNS(null, "x", x + 12);
+        text.setAttributeNS(null, "y", y + 12);
+        text.setAttributeNS(null, "style", "fill:#aaa;font-size: 12px; font-weight: bold;");
+        text.setAttributeNS(null, "text-anchor", "middle");
+        text.setAttributeNS(null, "dy", ".3em");
+        text.textContent = node.value.toString();
+        g.appendChild(text);
+        vertex.setAttributeNS(null, "style", codes ? "fill:#060" : "fill:#666" );
+        if (codes) {
+          let runner = node;
+          code = "";
+          while (runner !== tree) {
+            const parent = runner.parent;
+            const line = g.querySelector("#" + runner.id + parent.id);
+            if (line) {
+              const x1 = parseFloat(line.getAttribute("x1"));
+              const y1 = parseFloat(line.getAttribute("y1"));
+              const x2 = parseFloat(line.getAttribute("x2"));
+              const y2 = parseFloat(line.getAttribute("y2"));
+              const tx = x1 + (x2 - x1) / 2;
+              const ty = y1 + (y2 - y1) / 2;
+              const flag = document.createElementNS("http://www.w3.org/2000/svg", "text");
+              flag.setAttributeNS(null, "x", tx);
+              flag.setAttributeNS(null, "y", ty);
+              flag.setAttributeNS(null, "style", "fill:#fff;font-size: 24px; font-weight: bold;");
+              flag.setAttributeNS(null, "text-anchor", "middle");
+              flag.textContent = parent.children.indexOf(runner).toString();
+              code = flag.textContent + code;
+              g.appendChild(flag);
+            }
+            runner = parent;
+          }
+          codes[node.label] = code;
+        }
+      }
+    }
+    queue = next;
+    y += 78;
+  }
+  return codes;
+}
+function renderCount(letter, sum) {
+  const g = document.getElementById("huffman-tree");
+  const counts = g.querySelectorAll("text");
+  const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  text.setAttributeNS(null, "x", 672 / 2);
+  text.setAttributeNS(null, "y", 24 + counts.length * 32);
+  text.setAttributeNS(null, "style", "fill:#fff; font-family: monospace; font-size: 24px; font-weight: bold;");
+  text.setAttributeNS(null, "text-anchor", "middle");
+  text.textContent = letter + " = " + sum;
+  g.appendChild(text);
+}
+
+function assembleTree(tree) {
+  if (!AnimationRegistry.active["huffman-slide"]) {
+    return;
+  }
+  tree.children.sort( (a, b) => a.value - b.value );
+  const codes = renderTree(tree);
+  if (tree.children.length > 2) {
+    const left = tree.children.shift();
+    const right = tree.children.shift();
+    const next = {
+      id: left.id + right.id,
+      parent: tree,
+      value: left.value + right.value,
+      children: [ left, right ]
+    }
+    left.parent = next;
+    right.parent = next;
+    tree.children.push(next);
+    window.setTimeout(function() {
+      assembleTree(tree)
+    }, 2500);
+  } else {
+    window.setTimeout(function() {
+      encodeLetters(codes, 0);
+    }, 7000);
+  }
+}
+
+function countLetters(counters, position) {
+  if (!AnimationRegistry.active["huffman-slide"]) {
+    return;
+  }
+  if (position < huffmanText.length) {
+    for (e of  document.getElementById("huffman-in").querySelectorAll("span")) {
+      e.setAttribute("class", "");
+    }
+    const current = huffmanText.charAt(position);
+    if (counters[current]) {
+      countLetters(counters, position + 1);
+    } else {
+      let sum = 0;
+      for (let i = position; i < huffmanText.length; i++) {
+        if (current === huffmanText.charAt(i)) {
+          sum++;
+          const elem = document.getElementById("ht-" + i);
+          elem.setAttribute("class", "med-on");
+        }
+      }
+      counters[current] = sum;
+      renderCount(current, sum);
+      window.setTimeout(function() {
+        countLetters(counters, position + 1);
+      }, 1000);
+    } 
+  } else {
+    const tree = { id: "root", children: [], value: 0 };
+    for (var letter in counters) {
+      if (counters.hasOwnProperty(letter)) {
+        tree.children.push({ id: letter === " " ? "whitespace" : letter, value: counters[letter], label: letter, parent: tree });
+        tree.value += counters[letter];
+      }
+    }
+    window.setTimeout(function() {
+      assembleTree(tree);
+    }, 1000);
+  }
+}
+
+function startHuffman() {
+  if (AnimationRegistry.active["huffman-slide"]) {
+    const g = document.getElementById("huffman-tree");
+    while (g.firstChild) {
+      g.firstChild.remove();
+    }
+    window.setTimeout(function() {
+     countLetters({}, 0);
+    }, 1000);
+  }
+}
+function stopHuffman() {
+}
+function initHuffmanText() {
+  const intext = document.getElementById("huffman-in");
+  for (let i = 0; i < huffmanText.length; i++) {
+    const c = document.createElement("span");
+    c.setAttribute("id", "ht-" + i);
+    c.innerText = huffmanText.charAt(i);
+    intext.appendChild(c);
+  }
+}
+initHuffmanText();
+AnimationRegistry.register("huffman-slide", startHuffman, stopHuffman);
+</script>
+	</section>

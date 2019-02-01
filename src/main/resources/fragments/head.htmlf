@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Coding Challenge II: Polyglot</title>
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/moon.css">
+		<style>
+.resbar {
+  display: flex;
+  flex-direction: row;
+  horizontal-align: center;
+  box-shadow: 3px 3px 1px 1px #555;
+  color: rgb(238, 232, 213);
+}
+.res0 {
+  background-color: #0a0;
+  text-align: center;
+}
+.res1 {
+  background-color: #999;
+  text-align: center;
+}
+.res2 {
+  background-color: #b20;
+  text-align: center;
+}
+.ok {
+  color: #0a0;
+}
+.nok {
+  color: #b20;
+}
+.pos0 {
+  color: #0a0;
+}
+.pos1 {
+  color: #aa0;
+}
+.pos2 {
+  color: #880;
+}
+.posn {
+  rgb(238, 232, 213);
+}
+.med-hi {
+  color: #aaa;
+}
+.med-lo {
+  color: #777;
+}
+.med-on {
+  color: #fc0;
+}
+.cursor {
+  animation: cursor-anim 1s infinite;
+}
+@-webkit-keyframes cursor-anim {
+  0%, 49% {
+    background-color: rgb(117, 63, 255);
+  }
+  50%, 100% {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+.beelink { stroke: #999; stroke-width: 1.5; }
+.beelinkv { stroke: yellow; stroke-width: 3; }
+.beenode { fill: red; stroke: #004; stroke-width: 3px; }
+.beenodev { fill: green; stroke: yellow; stroke-width: 3px; }
+		</style>
+		<script>
+			const AnimationRegistry = {
+				enter: {},
+				exit: {},
+				active: {},
+				register: function (id, activator, deactivator, run) {
+					AnimationRegistry.enter[id] = activator;
+					AnimationRegistry.exit[id] = deactivator;
+					if (run) {
+						AnimationRegistry.active[id] = true;
+						activator.apply();
+					} else {
+						AnimationRegistry.active[id] = false;
+					}
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">

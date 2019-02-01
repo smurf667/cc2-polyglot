@@ -1,0 +1,161 @@
+{
+  "editDistances": [ {
+    "label": "\"world\" > \"hello world\"",
+    "from": "world",
+    "to": "hello world",
+    "distance": 6
+  }, {
+    "label": "\"Homer\" > \"Marge\"",
+    "from": "Homer",
+    "to": "Marge",
+    "distance": 5
+  }, {
+    "label": "\"The quick brown fox\"... (big)",
+    "from": "The quick brown fox jumps over the lazy dog",
+    "to": "The lazy fox quickly jumps over the brown dog",
+    "distance": 21
+  } ],
+  "beeGraphs": [ {
+    "label": "Cubic graph",
+    "connections": [{"a":"A","b":"O","time":270},{"a":"E","b":"J","time":41},{"a":"F","b":"I","time":93},{"a":"G","b":"H","time":270},{"a":"B","b":"R","time":93},{"a":"H","b":"K","time":270},{"a":"I","b":"M","time":93},{"a":"J","b":"L","time":103},{"a":"I","b":"L","time":41},{"a":"K","b":"M","time":71},{"a":"C","b":"T","time":42},{"a":"K","b":"O","time":270},{"a":"L","b":"P","time":103},{"a":"M","b":"N","time":93},{"a":"J","b":"T","time":102},{"a":"N","b":"P","time":40},{"a":"O","b":"Q","time":71},{"a":"N","b":"Q","time":93},{"a":"P","b":"S","time":102},{"a":"Q","b":"R","time":93},{"a":"R","b":"S","time":41},{"a":"S","b":"T","time":102},{"a":"A","b":"B","time":70},{"a":"B","b":"C","time":94},{"a":"A","b":"G","time":270},{"a":"C","b":"D","time":93},{"a":"D","b":"E","time":93},{"a":"D","b":"G","time":70},{"a":"E","b":"F","time":93},{"a":"F","b":"H","time":71}],
+    "maxTime": 1767,
+    "empty": false
+  }, {
+    "label": "K8 complete graph",
+    "connections": [{"a":"S","b":"U","time":45},{"a":"S","b":"T","time":24},{"a":"S","b":"W","time":64},{"a":"T","b":"V","time":44},{"a":"S","b":"V","time":58},{"a":"T","b":"U","time":24},{"a":"S","b":"Y","time":45},{"a":"T","b":"X","time":62},{"a":"U","b":"W","time":45},{"a":"S","b":"X","time":58},{"a":"T","b":"W","time":58},{"a":"U","b":"V","time":24},{"a":"T","b":"Z","time":44},{"a":"U","b":"Y","time":64},{"a":"V","b":"X","time":44},{"a":"S","b":"Z","time":24},{"a":"T","b":"Y","time":58},{"a":"U","b":"X","time":58},{"a":"V","b":"W","time":24},{"a":"V","b":"Z","time":62},{"a":"W","b":"Y","time":45},{"a":"U","b":"Z","time":58},{"a":"V","b":"Y","time":58},{"a":"W","b":"X","time":24},{"a":"X","b":"Z","time":44},{"a":"W","b":"Z","time":58},{"a":"X","b":"Y","time":24},{"a":"Y","b":"Z","time":24}],
+    "maxTime": 167,
+    "empty": true
+  }, {
+    "label": "Random graph (23 nodes)",
+    "connections": [{"a":"n4","b":"n19","time":64},{"a":"n9","b":"n12","time":91},{"a":"n17","b":"n21","time":55},{"a":"n7","b":"n14","time":137},{"a":"n12","b":"n20","time":86},{"a":"n8","b":"n16","time":118},{"a":"n2","b":"n12","time":42},{"a":"n13","b":"n16","time":102},{"a":"n3","b":"n14","time":87},{"a":"n5","b":"n17","time":107},{"a":"n15","b":"n21","time":124},{"a":"n4","b":"n13","time":52},{"a":"n1","b":"n10","time":138},{"a":"n0","b":"n13","time":67},{"a":"n11","b":"n18","time":120},{"a":"n3","b":"n4","time":99},{"a":"n6","b":"n9","time":113},{"a":"n1","b":"n9","time":34},{"a":"n6","b":"n10","time":64},{"a":"n16","b":"n18","time":102},{"a":"n12","b":"n18","time":34},{"a":"n3","b":"n6","time":62},{"a":"n1","b":"n18","time":65},{"a":"n10","b":"n11","time":54},{"a":"n15","b":"n18","time":64},{"a":"n3","b":"n16","time":82},{"a":"n0","b":"n4","time":71},{"a":"n2","b":"n14","time":131},{"a":"n1","b":"n16","time":41},{"a":"n10","b":"n17","time":96},{"a":"n5","b":"n12","time":143},{"a":"n9","b":"n15","time":124},{"a":"n5","b":"n11","time":66},{"a":"n8","b":"n10","time":36},{"a":"n0","b":"n11","time":156},{"a":"n3","b":"n10","time":87},{"a":"n15","b":"n20","time":75},{"a":"n9","b":"n16","time":52},{"a":"n10","b":"n14","time":91},{"a":"n3","b":"n9","time":59},{"a":"n4","b":"n12","time":129},{"a":"n2","b":"n22","time":101},{"a":"n1","b":"n19","time":92},{"a":"n16","b":"n19","time":66},{"a":"n2","b":"n19","time":64},{"a":"n8","b":"n21","time":124},{"a":"n8","b":"n11","time":47},{"a":"n2","b":"n18","time":76},{"a":"n3","b":"n8","time":53},{"a":"n18","b":"n20","time":71},{"a":"n2","b":"n16","time":84}],
+    "maxTime": 1600,
+    "empty": false
+  } ],
+  "pancakes": [ {
+    "label": "50 pancakes in random order",
+    "stack": [15, 46, 49, 33, 16, 50, 24, 21, 28, 4, 36, 35, 5, 40, 45, 37, 14, 3, 25, 20, 10, 42, 48, 7, 32, 2, 23, 38, 17, 19, 31, 6, 30, 1, 13, 39, 18, 22, 11, 29, 44, 47, 27, 12, 9, 26, 34, 43, 41, 8]
+  }, {
+    "label": "Already sorted pancakes",
+    "stack": [10,20,30,40,50]
+  }, {
+    "label": "Pancakes in reverse order",
+    "stack": [50,49,48,47,46,45,44,43,42,41,40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1]
+  } ],
+  "happySeven": [ {
+    "label": "[1,6,7,2,3,4,5]",
+    "configuration": [1,6,7,2,3,4,5]
+  }, {
+    "label": "[7,6,5,4,3,2,1]",
+    "configuration": [7,6,5,4,3,2,1]
+  }, {
+    "label": "[1,2,3,4,5,6,7] (already good)",
+    "configuration": [1,2,3,4,5,6,7]
+  } ],
+  "notationExpressions": [ {
+    "label": "( 19 + 2 * 3 ) / ( 7 - 2 )",
+    "expression": "( 19 + 2 * 3 ) / ( 7 - 2 )",
+    "expected": 5
+  }, {
+    "label": "1 + 2 + 3 - 4 - 5",
+    "expression": "1 + 2 + 3 - 4 - 5",
+    "expected": -3
+  }, {
+    "label": "2 * ( 8 - ( 2 + 1 ) * 2 ) - 1",
+    "expression": "2 * ( 8 - ( 2 + 1 ) * 2 ) - 1",
+    "expected": 3
+  } ],
+  "huffmanStrings": [ {
+    "label": "Text from Wikipedia",
+    "text": "The output from Huffman's algorithm can be viewed as a variable-length code table for encoding a source symbol (such as a character in a file). The algorithm derives this table from the estimated probability or frequency of occurrence (weight) for each possible value of the source symbol. As in other entropy encoding methods, more common symbols are generally represented using fewer bits than less common symbols. Huffman's method can be efficiently implemented, finding a code in time linear to the number of input weights if these weights are sorted. However, although optimal among methods encoding symbols separately, Huffman coding is not always optimal among all compression methods.",
+    "bitcount": 3008
+  }, {
+    "label": "Pangram",
+    "text": "Pack my box with five dozen liquor jugs.",
+    "bitcount": 182
+  }, {
+    "label": "Single letter",
+    "text": "X",
+    "bitcount": 1
+  } ],
+  "xmlEasy": [ {
+    "label": "Simple mapping case",
+    "xmlIn": "/xml/easy1.xml",
+    "xpathAsserts": [
+      "count(/items//item) = 3",
+      "count(//name[text() = \"fn1 ln1\"]) = 1",
+      "count(//name[text() = \"fn2 ln2\"]) = 1",
+      "count(//name[text() = \"fn3 ln3\"]) = 1",
+      "count(//city[text() = \"city1\"]) = 2",
+      "count(//city[text() = \"city2\"]) = 1",
+      "count(//country[text() = \"country1\"]) = 1",
+      "count(//country[text() = \"country2\"]) = 2"
+    ]
+  }, {
+    "label": "Mapping with gaps",
+    "xmlIn": "/xml/easy2.xml",
+    "xpathAsserts": [
+      "count(/items//item) = 2",
+      "not(//item/address[text() = \"street1\"]/../city/text())",
+      "not(//item/address[text() = \"street2\"]/../country/text())"
+    ]
+  }, {
+    "label": "Empty input",
+    "xmlIn": "/xml/easy3.xml",
+    "xpathAsserts": [ "count(/items//item) = 0" ]
+  } ],
+  "xmlHard": [ {
+    "label": "Flag scenario yes/maybe",
+    "xmlIn": "/xml/hard.xml",
+    "parameter": "yes,maybe",
+    "xpathAsserts": [
+      "count(//marker1) = 1",
+      "count(//marker2) = 1",
+      "count(//marker3) = 1",
+      "count(//marker4) = 1",
+      "count(//marker5) = 1",
+      "count(//marker6) = 1",
+      "count(//marker7[namespace::used]) = 1",
+      "count(//marker8) = 0",
+      "count(//never) = 0",
+      "count(//comment()) = 1",
+      "count(//*[namespace::unused]) = 0",
+      "count(//*[namespace::unused2]) = 0"
+    ]
+  }, {
+    "label": "Flag scenario no",
+    "xmlIn": "/xml/hard.xml",
+    "parameter": "no",
+    "xpathAsserts": [
+      "count(//marker1) = 0",
+      "count(//marker2) = 0",
+      "count(//marker3) = 0",
+      "count(//marker4) = 0",
+      "count(//marker5) = 1",
+      "count(//marker6) = 1",
+      "count(//marker7[namespace::used]) = 1",
+      "count(//marker8) = 1",
+      "count(//never) = 0",
+      "count(//comment()) = 1",
+      "count(//*[namespace::unused]) = 0",
+      "count(//*[namespace::unused2]) = 0"
+    ]
+  }, {
+    "label": "No flag scenario",
+    "xmlIn": "/xml/hard.xml",
+    "parameter": "",
+    "xpathAsserts": [
+      "count(//marker1) = 0",
+      "count(//marker2) = 0",
+      "count(//marker3) = 0",
+      "count(//marker4) = 0",
+      "count(//marker5) = 0",
+      "count(//marker6) = 1",
+      "count(//marker7[namespace::used]) = 1",
+      "count(//marker8) = 0",
+      "count(//never) = 0",
+      "count(//comment()) = 1",
+      "count(//*[namespace::unused]) = 0",
+      "count(//*[namespace::unused2]) = 0"
+    ]
+  } ]
+}

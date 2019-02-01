@@ -1,0 +1,24 @@
+<section data-transition="zoom">
+	<h1>Agenda</h1>
+	<ul>
+		<li>Challenges
+			<ul>
+				<li>Results</li>
+				<li>Discussion</li>
+			</ul>
+		</li>
+		<li>Ranking and awards</li>
+		<li>Beer'o'clock!</li>
+	</ul>
+</section>
+
+<section data-transition="convex">
+	<h1>The Challenges</h1>
+	<h3>Just a short summary - you know about it if you worked on them!</h3>
+	<ul>
+		<li><strong>Java:</strong> Minimal Edit Distance &amp; Busy Bee</li>
+		<li><strong>JavaScript:</strong> Pancake Flipper &amp; Happy Seven</li>
+		<li><strong>Lisp:</strong> Reverse Polish Notation &amp; Huffman Coding</li>
+		<li><strong>XSLT:</strong> Easy &amp; hard transformations</li>
+	</ul>
+</section>

@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import de.engehausen.cc2.data.Inputs;
 import de.engehausen.cc2.reporters.Console;
 import de.engehausen.cc2.reporters.Json;
+import de.engehausen.cc2.reporters.Slides;
 
 /**
  * Reporter for challenge results.
@@ -39,7 +40,8 @@ public interface Reporter {
 	static Class<? extends Reporter>[] all() {
 		return new Class[] {
 			Console.class,
-			Json.class
+			Json.class,
+			Slides.class
 		};
 	}
 }

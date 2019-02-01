@@ -1,0 +1,11 @@
+<section data-transition="concave">
+	<section>
+		<h2>"Hard" XML transformation</h2>
+		<ul>
+			<li>Apply a number of rules to convert a XML document</li>
+			<li>Example taken from real life</li>
+			<li>Namespaces complicate matters a bit more</li>
+		</ul>
+		<div>&nbsp;</div>
+		@STATS@
+	</section>

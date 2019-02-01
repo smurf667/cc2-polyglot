@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<data xmlns="http://localhost/easy-in"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://localhost/easy-in easy-in.xsd">
+	<!-- mapping gaps for city and country -->
+	<items>
+		<item firstName="fn1" lastName="ln1" street="street1" cityCode="unknown" countryCode="country" />
+		<item firstName="fn2" lastName="ln2" street="street2" cityCode="city" countryCode="unknown" />
+	</items>
+	<cities>
+		<city code="city">city</city>
+	</cities>
+	<countries>
+		<country code="country" name="country" />
+	</countries>
+</data>

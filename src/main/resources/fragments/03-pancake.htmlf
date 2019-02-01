@@ -1,0 +1,87 @@
+<section data-transition="concave">
+	<section>
+		<h2>Pancake Flipper</h2>
+		<ul>
+			<li>Sorting a stack of pancakes using a flipper.</li>
+			<li>This is not too hard</li>
+			<li>Can be solved by putting the largest pancake to the bottom and then solving the sub-problem of the smaller stack</li>
+		</ul>
+		<div>&nbsp;</div>
+		@STATS@
+	</section>
+	<section id="pancake-slide">
+		<h2>An example</h2>
+<svg id="pancake" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0" width="480" height="320" viewBox="0 0 480 320">
+  <g id="pc-group" transform="translate(240 0)"></g>
+</svg>
+<script>
+const pancakeIn = [19,39,24,33,12,15,22,31,34,17,21,14,4,9,30,16,8,2,11,38,23,26,25,36,40,28,29,6,35,10,27,32,7,5,20,18,37,3,13,1];
+const pancakeFlips = [24,39,16,38,4,37,12,36,3,35,7,34,13,33,15,32,19,31,25,30,22,29,18,28,17,26,20,25,9,23,18,22,17,21,14,20,16,19,16,18,17,15,16,4,15,2,14,7,13,7,12,7,11,4,10,4,7,3,6,5,3,4,2];
+let pancakePos = -1;
+
+{
+  const group = document.getElementById("pancake").getElementById("pc-group");
+  for (let i = 0; i < pancakeIn.length; i++) {
+    let n = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    let w = (i + 1) * 5;
+    n.setAttributeNS(null, "x", "-" + w);
+    n.setAttributeNS(null, "y", "" + i * 7);
+    n.setAttributeNS(null, "width", "" + w * 2);
+    n.setAttributeNS(null, "height", "6");
+    n.setAttributeNS(null, "fill", "#999");
+    n.setAttributeNS(null, "style", "display: none");
+    group.appendChild(n);
+  }
+}
+function setRects(list, max) {
+  const rects = document.getElementById("pancake").getElementById("pc-group").querySelectorAll("rect");
+  for (let i = 0; i < max; i++) {
+    const n = rects[i];
+    const w = (list[i] + 1) * 5;
+    n.setAttributeNS(null, "x", "-" + w);
+    n.setAttributeNS(null, "width", "" + w * 2);
+    n.setAttributeNS(null, "style", "");
+    n.setAttributeNS(null, "fill", "#999");
+  }
+}
+function flip(stack, highlightOnly) {
+  if (pancakePos < 0) {
+    return;
+  }
+  if (highlightOnly) {
+    const rects = document.getElementById("pancake").getElementById("pc-group").querySelectorAll("rect");
+    for (let i = 0; i < 1 + pancakeFlips[pancakePos]; i++) {
+      rects[i].setAttributeNS(null, "fill", "#aa0");
+    }
+  } else {
+    const part = stack.slice(0, 1 + pancakeFlips[pancakePos]).reverse();
+    for (let i = 0; i < part.length; i++) {
+      stack[i] = part[i];
+    }
+    setRects(stack, 1 + pancakeFlips[pancakePos]);
+    pancakePos++;
+  }
+  if (pancakeFlips.length == pancakePos) {
+    window.setTimeout(function() {
+      startFlips()
+    }, 2000);
+  } else {
+    window.setTimeout(function() {
+      flip(stack, !highlightOnly);
+    }, 250);
+  }
+}
+function startFlips() {
+  setRects(pancakeIn, pancakeIn.length);
+  window.setTimeout(function() {
+    pancakePos = 0;
+    flip(pancakeIn.slice(0), true);
+  }, 1000);
+}
+
+function stopFlips() {
+  pancakePos = -1;
+}
+AnimationRegistry.register("pancake-slide", startFlips, stopFlips);
+</script>
+</section>

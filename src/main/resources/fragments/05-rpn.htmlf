@@ -1,0 +1,91 @@
+<section data-transition="concave">
+	<section>
+		<h2>Reverse Polish Notation</h2>
+		<ul>
+			<li>Transform an arithmetic infix expression into Reverse Polish Notation</li>
+			<li>The shunting-yard algorithm to the rescue:</li>
+			<li>Two stacks (result and operator) and some building rules are needed</li>
+		</ul>
+		<div>&nbsp;</div>
+		@STATS@
+	</section>
+	<section id="rpn-slide">
+		<h2>An example</h2>
+		<table>
+			<tbody>
+				<tr><td>Input</td><td><span id="rpn-in"></span></td></tr>
+				<tr><td>Operator stack</td><td><span id="rpn-stack"></span></td></tr>
+				<tr><td>Result</td><td><span id="rpn-out"></span></td></tr>
+			</tbody>
+		</table>
+<script>
+let rpnPos = -1;
+const rpnTokens = [ "(", "19", "+", "2", "*", "3", ")", "/", "(", "7", "-", "2", ")" ];
+const rpnSequence = [
+  { r: "", s: "" },
+  { r: "", s: "(" },
+  { r: "19", s: "(" },
+  { r: "19", s: "+ (" },
+  { r: "19 2", s: "+ (" },
+  { r: "19 2", s: "* + (" },
+  { r: "19 2 3", s: "* + (" },
+  { r: "19 2 3 * +", s: [] },
+  { r: "19 2 3 * +", s: "/" },
+  { r: "19 2 3 * +", s: "( /" },
+  { r: "19 2 3 * + 7", s: "( /" },
+  { r: "19 2 3 * + 7", s: "- ( /" },
+  { r: "19 2 3 * + 7 2", s: "- ( /" },
+  { r: "19 2 3 * + 7 2 -", s: "/" },
+  { r: "19 2 3 * + 7 2 - /", s: "" }
+];
+function rpnStep() {
+  if (rpnPos < 0) {
+    return;
+  }
+  const out =document.getElementById("rpn-out");
+  if (rpnPos < rpnSequence.length) {
+    if (rpnPos < rpnTokens.length) {
+      const token = document.getElementById("tok" + rpnPos);
+      token.setAttribute("class", "med-on");
+    }
+    document.getElementById("rpn-stack").innerText = rpnSequence[rpnPos].s;
+    out.innerText = rpnSequence[rpnPos].r;
+    out.setAttribute("class", "");
+    document.getElementById("rpn-out").innerText = rpnSequence[rpnPos].r;
+  }
+  if (rpnPos > 0 && rpnPos <= rpnTokens.length) {
+    document.getElementById("tok" + (rpnPos - 1)).setAttribute("class", "");
+  }
+  rpnPos++;
+  if (rpnPos < rpnSequence.length) {
+    window.setTimeout(rpnStep, 1000);
+  } else {
+    out.setAttribute("class", "ok");
+    window.setTimeout(startRpn, 5000);
+  }
+}
+function wipeChildren(e) {
+  while (e.firstChild) {
+    e.firstChild.remove();
+  }
+}
+function startRpn() {
+  const info = document.getElementById("rpn-in");
+  wipeChildren(info);
+  wipeChildren(document.getElementById("rpn-stack"));
+  wipeChildren(document.getElementById("rpn-out"));
+  for (let i = 0; i < rpnTokens.length; i++) {
+    const t = document.createElement("span");
+    t.setAttribute("id", "tok" + i);
+    t.innerText = rpnTokens[i] + " ";
+    info.appendChild(t);
+  }
+  rpnPos = 0;
+  window.setTimeout(rpnStep, 2000);
+}
+function stopRpn() {
+  rpnPos = -1;
+}
+AnimationRegistry.register("rpn-slide", startRpn, stopRpn);
+</script>
+	</section>

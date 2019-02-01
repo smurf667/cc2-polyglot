@@ -1,0 +1,15 @@
+<section data-transition="zoom">
+	<section>
+		<h2>Ranking</h2>
+		<ul>
+			<li>Ranking of all contributions!</li>
+			<li>Expressed as a percentage of correct responses</li>
+			<li>Same percentage: Execution time counts</li>
+			<li>Nobody is perfect
+				<ul>
+					<li>execution time is not completely deterministic</li>
+					<li>if verification of your result was faulty: <em>My bad!</em></li>
+				</ul>
+			</li>
+		</ul>
+	</section>

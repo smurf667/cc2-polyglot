@@ -1,0 +1,11 @@
+<section data-transition="concave">
+	<section>
+		<h2>"Easy" XML transformation</h2>
+		<ul>
+			<li>Convert a XML document from one format to another</li>
+			<li>Functional programming using XSLT</li>
+			<li>Namespaces complicate matters</li>
+		</ul>
+		<div>&nbsp;</div>
+		@STATS@
+	</section>

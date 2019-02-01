@@ -1,0 +1,17 @@
+			</div>
+		</div>
+		<script src="js/reveal.js"></script>
+		<script>
+			Reveal.initialize();
+			Reveal.addEventListener("slidechanged", function( event ) {
+				if (AnimationRegistry.exit[event.previousSlide.id]) {
+					AnimationRegistry.active[event.previousSlide.id] = false;
+					AnimationRegistry.exit[event.previousSlide.id].apply();
+				} else if (AnimationRegistry.enter[event.currentSlide.id]) {
+					AnimationRegistry.active[event.currentSlide.id] = true;
+					AnimationRegistry.enter[event.currentSlide.id].apply();
+				}
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,256 @@
+<section data-transition="concave">
+	<section>
+		<h2>Happy Seven</h2>
+		<ul>
+			<li>Order numbers on to seven into ascending sequence</li>
+			<li>The overlap on the two circles makes this a bit tricky</li>
+			<li>A solution is possible for any permutation</li>
+			<li>Finding a good (aka) short rotation sequence is...?</li>
+		</ul>
+		<div>&nbsp;</div>
+		@STATS@
+	</section>
+	<section id="happy-slide">
+		<h2>An example</h2>
+<svg id="happy" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0" width="480" height="256">
+  <circle id="happy-l" cx="136" cy="128" r="100" stroke="#268" stroke-width="24" fill="none" />
+  <circle id="happy-r" cx="336" cy="128" r="100" stroke="#268" stroke-width="24" fill="none" />
+</svg>
+<h3 id="happy-ops"></h3>
+<script>
+const happyCirclePositions = [];
+
+function setCirclePosition(g, x, y, text) {
+  const c = g.querySelector("circle");
+  const t = g.querySelector("text");
+  c.setAttributeNS(null, "cx", x);
+  c.setAttributeNS(null, "cy", y);
+  t.setAttributeNS(null, "x", x);
+  t.setAttributeNS(null, "y", y);
+  if (text) {
+    t.textContent = text;
+  }
+}
+
+function rotateNumber(id, direction, cx, cy, zero, angle) {
+  const a = zero + direction * angle;
+  setCirclePosition(document.getElementById("happy").getElementById(id), Math.round(cx - 100 * Math.sin(Math.PI * a / 180)).toString(), Math.round(cy - 100 * Math.cos(Math.PI * a / 180)).toString());
+}
+function rotateCirclesLeft(direction, degrees) {
+  rotateNumber("happy1", direction, 136, 128, 0, degrees);
+  rotateNumber("happy2", direction, 136, 128, 90, degrees);
+  rotateNumber("happy3", direction, 136, 128, 180, degrees);
+  rotateNumber("happy4", direction, 136, 128, 270, degrees);
+}
+function rotateCirclesRight(direction, degrees) {
+  rotateNumber("happy4", direction, 336, 128, 90, degrees);
+  rotateNumber("happy5", direction, 336, 128, 180, degrees);
+  rotateNumber("happy6", direction, 336, 128, 270, degrees);
+  rotateNumber("happy7", direction, 336, 128, 0, degrees);
+}
+function rotateCirclesAll(direction, degrees) {
+  if (direction > 0) {
+    // happy7 to left
+    const happy7 = document.getElementById("happy").getElementById("happy7");
+    const d = parseInt(happyCirclePositions[6].x, 10) - Math.round(200 * degrees / 90);
+    setCirclePosition(happy7, d.toString(), happyCirclePositions[6].y);
+    rotateNumber("happy1", direction, 136, 128, 0, degrees);
+    rotateNumber("happy2", direction, 136, 128, 90, degrees);
+    rotateNumber("happy3", direction, 136, 128, 180, degrees);
+    rotateNumber("happy4", direction, 336, 128, 90, degrees);
+    rotateNumber("happy5", direction, 336, 128, 180, degrees);
+    rotateNumber("happy6", direction, 336, 128, 270, degrees);
+  } else {
+    // happy1 to right
+    const happy1 = document.getElementById("happy").getElementById("happy1");
+    const d = parseInt(happyCirclePositions[0].x, 10) + Math.round(200 * degrees / 90);
+    setCirclePosition(happy1, d.toString(), happyCirclePositions[0].y);
+    rotateNumber("happy2", direction, 136, 128, 90, degrees);
+    rotateNumber("happy3", direction, 136, 128, 180, degrees);
+    rotateNumber("happy4", direction, 136, 128, 270, degrees);
+    rotateNumber("happy5", direction, 336, 128, 180, degrees);
+    rotateNumber("happy6", direction, 336, 128, 270, degrees);
+    rotateNumber("happy7", direction, 336, 128, 0, degrees);
+  }
+}
+function createHappyCircle(svg, label, x, y) {
+  const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  g.setAttributeNS(null, "id", "happy" + label);
+  const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  c.setAttributeNS(null, "cx", x);
+  c.setAttributeNS(null, "cy", y);
+  c.setAttributeNS(null, "r", "26");
+  c.setAttributeNS(null, "style", "fill:#999");
+  g.appendChild(c);
+  const t = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  t.setAttributeNS(null, "x", x);
+  t.setAttributeNS(null, "y", y);
+  t.setAttributeNS(null, "style", "fill:#fff;font-size: 24px; font-weight: bold;");
+  t.setAttributeNS(null, "text-anchor", "middle");
+  t.setAttributeNS(null, "dy", ".3em");
+  t.textContent = label;
+  g.appendChild(t);
+  svg.appendChild(g);
+  return { x: x, y: y };
+}
+
+function setRings(color) {
+  const svg = document.getElementById("happy");
+  svg.getElementById("happy-l").setAttributeNS(null, "stroke", color);
+  svg.getElementById("happy-r").setAttributeNS(null, "stroke", color);
+}
+
+function setHappy(sequence) {
+  const svg = document.getElementById("happy");
+  let groups = svg.querySelectorAll("g");
+  if (groups.length === 0) {
+    // left circle
+    let cx = 136;
+    const cy = 128;
+    for (let a = 0; a < 360; a+= 90) {
+      happyCirclePositions.push(createHappyCircle(svg, sequence.shift(), Math.round(cx - 100 * Math.sin(Math.PI * a / 180)).toString(), Math.round(cy - 100 * Math.cos(Math.PI * a / 180)).toString()));
+    }
+    // right circle
+    cx = 336;
+    for (let a = 180; a < 361; a+= 90) {
+      happyCirclePositions.push(createHappyCircle(svg, sequence.shift(), Math.round(cx - 100 * Math.sin(Math.PI * a / 180)).toString(), Math.round(cy - 100 * Math.cos(Math.PI * a / 180)).toString()));
+    }
+  } else {
+    for (let i = 0; i < sequence.length; i++) {
+      setCirclePosition(groups[i], happyCirclePositions[i].x, happyCirclePositions[i].y, sequence[i]);
+    }
+  }
+}
+function realRotate(config, direction, start, end) {
+  let pos = start;
+  for (let i = end - start; --i >= 0; ) {
+    let next = pos - direction;
+    if (next < start) {
+      next = end;
+    } else if (next > end) {
+      next = start;
+    }
+    const temp = config[next];
+    config[next] = config[pos];
+    config[pos] = temp;
+    pos = next;
+  }
+  setHappy(config);
+}
+function rotateLeft(sequence, direction, degrees) {
+  if (!happyOps) {
+    return;
+  }
+  rotateCirclesLeft(direction, degrees);
+  if (degrees < 90) {
+    window.setTimeout(function() {
+      rotateLeft(sequence, direction, degrees + 2);
+    }, 25);
+  } else {
+    realRotate(sequence, direction, 0, 3);
+    window.setTimeout(function() {
+      handleHappyOp(sequence);
+    }, 400);
+  }
+}
+function rotateRight(sequence, direction, degrees) {
+  if (!happyOps) {
+    return;
+  }
+  rotateCirclesRight(direction, degrees);
+  if (degrees < 90) {
+    window.setTimeout(function() {
+      rotateRight(sequence, direction, degrees + 2);
+    }, 25);
+  } else {
+    realRotate(sequence, direction, 3, 6);
+    window.setTimeout(function() {
+      handleHappyOp(sequence);
+    }, 400);
+  }
+}
+function rotateAll(sequence, direction, degrees) {
+  if (!happyOps) {
+    return;
+  }
+  rotateCirclesAll(direction, degrees);
+  if (degrees < 90) {
+    window.setTimeout(function() {
+      rotateAll(sequence, direction, degrees + 2);
+    }, 25);
+  } else {
+    realRotate(sequence, direction, 0, 6);
+    window.setTimeout(function() {
+      handleHappyOp(sequence);
+    }, 400);
+  }
+}
+
+function handleHappyOp(sequence) {
+  if (happyOps) {
+    renderOps();
+    const op = happyOps.shift();
+    if (!op) {
+      setRings("#0a0");
+      window.setTimeout(function() {
+        startHappySeven();
+      }, 4000);
+      return; 
+    }
+    const dir = op.charAt(1) === "+" ? 1 : -1;
+    const c = op.charAt(0);
+    if (c === "L") {
+      rotateLeft(sequence, dir, 0);
+    } if (c === "R") {
+      rotateRight(sequence, dir, 0);
+    } else if (c === "A") {
+      rotateAll(sequence, dir, 0);
+    }
+  }
+}
+
+
+const initialSequence = [1, 6, 7, 2, 3, 4, 5];
+const initialOps = ["L-", "R+", "L-", "A-", "A-", "R-", "R-", "A-", "A-", "L-", "R+", "L-", "A-", "A-", "R-", "R-", "A-", "A-" ];
+let happyOps;
+
+function renderOps() {
+  if (happyOps && AnimationRegistry.active["happy-slide"]) {
+    const info = document.getElementById("happy-ops");
+    while (info.firstChild) {
+      info.firstChild.remove();
+    }
+    for (let i = 0; i < 10 && i < happyOps.length; i++) {
+      const o = document.createElement("span");
+      if (i === 0) {
+        o.setAttribute("class", "med-on");
+      }
+      o.innerText = happyOps[i] + " ";
+      info.appendChild(o);
+    }
+    if (happyOps.length >= 10) {
+      const o = document.createElement("span");
+      o.innerText = "...";
+      info.appendChild(o);
+    }
+  }
+}
+
+setHappy([1, 2, 3, 4, 5, 6, 7]); // create the circles first
+setHappy(initialSequence); // set to initial config
+
+function startHappySeven() {
+  setHappy(initialSequence);
+  setRings("#268");
+  happyOps = initialOps.slice(0);
+  renderOps();
+  window.setTimeout(function() {
+    handleHappyOp(initialSequence.slice(0));
+  }, 1000);
+}
+function stopHappySeven() {
+  happyOps = undefined;
+}
+AnimationRegistry.register("happy-slide", startHappySeven, stopHappySeven);
+</script>
+</section>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<data xmlns="http://localhost/easy-in"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://localhost/easy-in easy-in.xsd">
+	<!-- straight-forward mapping example -->
+	<items>
+		<item firstName="fn1" lastName="ln1" street="street1" cityCode="city1" countryCode="country1" />
+		<item firstName="fn2" lastName="ln2" street="street2" cityCode="city2" countryCode="country2" />
+		<item firstName="fn3" lastName="ln3" street="street3" cityCode="city1" countryCode="country2" />
+	</items>
+	<cities>
+		<city code="city1">city1</city>
+		<city code="city2">city2</city>
+		<city code="city3">city3</city>
+	</cities>
+	<countries>
+		<country code="country1" name="country1" />
+		<country code="country2" name="country2" />
+		<country code="country3" name="country3" />
+		<country code="country4" name="country4" />
+		<country code="country5" name="country5" />
+	</countries>
+</data>
