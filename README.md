@@ -1,6 +1,6 @@
 # Coding Challenge II: Polyglot
 
-This the successor coding challenge I created at the end of 2018 after my [first one](https://github.com/smurf667/cc1-java8) in 2015.
+This is the successor of the coding challenge I created at the end of 2018 after my [first one](https://github.com/smurf667/cc1-java8) in 2015.
 
 This coding challenge has parts in different languages:
 
